@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flow Widget - AI Voice Dictation Capsule Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient background glow -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+  <div class="grid-overlay"></div>
+
+  <div class="container">
+    <header class="header">
+      <div class="badge">
+        <span class="pulse-dot"></span>
+        Flow Widget AI Dictation Architecture
+      </div>
+      <h1 class="title">AI Voice Dictation <span class="gradient-text">Capsule Widget</span></h1>
+      <p class="subtitle">Experience how modern voice AI widgets capture audio, transcribe real-time speech, strip filler words, resolve self-corrections, and inject clean text anywhere.</p>
+    </header>
+
+    <!-- Floating Widget Mockup / Interactive Component -->
+    <div class="widget-stage">
+      <div class="stage-label">Interactive Floating Mac Widget</div>
+      
+      <div class="capsule-widget" id="capsuleWidget">
+        <!-- Mic Button -->
+        <button class="mic-btn" id="micBtn" aria-label="Toggle recording">
+          <svg class="mic-icon" id="micIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+            <line x1="12" x2="12" y1="19" y2="22"/>
+          </svg>
+          <div class="sparkle-icon" id="sparkleIcon" style="display: none;">
+            ✨
+          </div>
+          <div class="check-icon" id="checkIcon" style="display: none;">
+            ✓
+          </div>
+        </button>
+
+        <!-- Status & Text -->
+        <div class="capsule-info">
+          <div class="capsule-status" id="capsuleStatus">Click to speak</div>
+          <div class="capsule-subtext" id="capsuleSubtext">or try sample prompts below</div>
+        </div>
+
+        <!-- 7-Bar Audio Waveform -->
+        <div class="waveform" id="waveform">
+          <span class="bar bar-1"></span>
+          <span class="bar bar-2"></span>
+          <span class="bar bar-3"></span>
+          <span class="bar bar-4"></span>
+          <span class="bar bar-5"></span>
+          <span class="bar bar-6"></span>
+          <span class="bar bar-7"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Testing & Comparison Workbench -->
+    <div class="workbench-grid">
+      <!-- Input / Raw Speech Box -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="icon">🎙️</span>
+            Raw Voice Transcript (STT Output)
+          </div>
+          <span class="tag tag-raw">Input</span>
+        </div>
+        <textarea id="rawInput" class="editor-area" placeholder="Speak with the mic or type messy speech like: 'hey um can we meet uh tomorrow at like 2 wait no 3 pm thanks'"></textarea>
+        
+        <div class="preset-chips">
+          <span class="chip-label">Quick samples:</span>
+          <button class="chip" data-sample="Hey what's up man good I'm going to hospital 8 o'clock sorry 9 o'clock">Your Test (Mistake Repair)</button>
+          <button class="chip" data-sample="hey um can we meet uh tomorrow at like 2 wait no 3 pm thanks">Time Self-Correction</button>
+          <button class="chip" data-sample="i think we should uh basically you know refactor the auth service literally tomorrow">Filler Words</button>
+        </div>
+
+        <button id="polishBtn" class="primary-btn">
+          <span>✨ Polish with AI Engine</span>
+        </button>
+      </div>
+
+      <!-- Clean / Polished Output Box -->
+      <div class="glass-card">
+        <div class="card-header">
+          <div class="card-title">
+            <span class="icon">🚀</span>
+            Polished Clean Output (Injected)
+          </div>
+          <span class="tag tag-clean">Output</span>
+        </div>
+        <div id="polishedOutput" class="output-preview">
+          <span class="placeholder-text">Polished, publication-ready text will appear here automatically...</span>
+        </div>
+        
+        <div class="action-row">
+          <button id="copyBtn" class="action-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            <span id="copyBtnText">Copy to Clipboard</span>
+          </button>
+          
+          <div class="stats-badge" id="statsBadge">
+            <span id="removedCount">0</span> words saved
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Architecture & Core Flow Explainer -->
+    <section class="flow-breakdown">
+      <h2 class="section-title">The 5 Core Layers of Flow Widget</h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <h3>Non-Activating Floating HUD</h3>
+          <p>Uses macOS <code>NSPanel</code> with <code>.nonactivatingPanel</code>. It hovers over any app without stealing keyboard focus from Slack, Notion, or your IDE.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <h3>Microphone Stream & RMS</h3>
+          <p>Captures 16kHz mono audio via <code>AVAudioEngine</code>. Computes live Root Mean Square (RMS) energy to power the dynamic waveform visualizer.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <h3>Fast Speech-to-Text</h3>
+          <p>Feeds audio frames to Apple's native <code>SFSpeechRecognizer</code> (offline/free) or cloud Whisper/Deepgram for instant transcription.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <h3>AI Polish & Filter</h3>
+          <p>Runs the proprietary prompt logic: removes fillers (<em>um, uh, like</em>), resolves human self-corrections (<em>"2 wait 3"</em>), and formats punctuation.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">05</div>
+          <h3>Universal Direct Injection</h3>
+          <p>Copies the polished result to <code>NSPasteboard</code> and simulates a <code>Cmd + V</code> keypress via <code>CGEvent</code> directly into your active cursor position.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
